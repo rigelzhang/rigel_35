@@ -1,0 +1,3397 @@
+1104: ★老王买房
+时间限制: 2 Sec  内存限制: 256 MB
+提交: 558  解决: 183
+[提交][状态][讨论版]
+题目描述
+
+隔壁的老王最近打算在大萝岗买房，正在考察买房的楼盘，他希望买到最佳位置的楼盘，以减少日常出行的开支。
+
+1）  为简化考虑，抽象萝岗为N*N的街区；（N为整数，且5<=N<=20）
+
+2）  已经开发的街区，有路，设为1，尚未开发的街区，无路，设为0；
+
+3）  在街区中有C个（2<=C<=4）老王认为的“核心区”，分别分布着老王的公司地点，重点学校，大型超市，综合医院等，彼此不重叠，且彼此有路相通。
+
+4）  老王希望楼盘到这些核心区的距离越“短”越好。这里“短”的定义如下：从楼盘到某核心区的距离通过有路的街区到达，其中最短的路径的距离定义为楼盘到此核心区的“移动距离”。从楼盘到C个核心区的“移动距离”中的最大值定义为楼盘的“最大移动距离”。老王希望楼盘的“最大移动距离”越短越好，此为“最佳楼盘”。
+
+5）  老王计划买的“最佳楼盘”和“核心区”互不重叠，且一定是有路可达的。各街区间通过道路相连，但仅为上，下，左，右四个方向。从楼盘到某核心区的路线上，可以经过其他的核心区。
+
+6）  老王听说你是广州三星的软件工程师，所以想请机智的你帮忙，你可以帮帮么？
+
+ 
+
+样例：
+
+萝岗区被抽象为8*8的街区。给定公司地点(2,8)标蓝，学校地点(1,2)标红，超市地点(5,8)标绿，如[Fig. 1]所示。注意：坐标是以(纵坐标,横坐标)的格式给出，且坐标值为范围[1,N]的整数。
+
+[Fig. 1]
+
+ 
+
+如果在地点(2,5)买房，标黄。到公司的移动距离是3，到学校的移动距离是8，到超市的移动距离是6（分别计算最短路径）。因此，最大移动距离是8。如[Fig.2]所示。
+
+[Fig.2]
+
+ 
+
+如果在地点(4,4)买房，标黄。到公司的移动距离是6，到学校的移动距离是5，到超市的移动距离是7（分别计算最短路径）。因此，最大移动距离是7。如[Fig.3]所示。
+
+[Fig.3]
+
+ 
+输入
+
+第一行为整数T，代表T个Test Case。（1<=T<=50）从第二行起，给出T个测试用例。
+
+每个测试用例的第一行为整数N，C。N代表N*N的街区（5<=N<=20），C为核心区数目（2<=C<=4）
+
+后面是C行核心区的地点的纵横坐标。
+
+然后是N行的大萝岗抽象的街区图。
+输出
+输出”#t”，t代表第t个测试用例，空一格，输出“最佳楼盘”对应的“最大移动距离”，然后输出回车。
+样例输入
+
+5
+5 2
+4 3
+3 4
+1 1 0 0 0
+1 1 0 0 0
+1 1 1 1 1
+1 1 1 0 1
+1 1 1 1 1
+8 2
+5 6
+6 4
+1 1 1 1 1 1 0 0 
+1 1 1 1 1 1 1 0
+1 1 0 1 0 1 1 0
+1 1 1 1 0 1 1 0
+1 1 1 1 1 1 1 0
+1 1 1 1 1 1 1 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+10 3
+8 2
+5 3
+7 1
+0 0 0 1 1 1 1 1 1 0
+1 1 1 1 1 1 1 1 1 0
+1 0 0 1 0 0 0 0 1 0
+1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 0 1 0 0 1 1 
+1 1 1 1 0 1 0 0 1 1 
+1 1 1 1 0 1 0 0 1 1 
+1 1 1 1 1 1 1 1 1 1
+1 1 1 0 0 1 0 0 1 1 
+1 1 1 1 1 1 1 1 1 1
+15 4
+11 15
+15 9
+1 2
+14 3
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+1 0 1 1 1 1 1 1 1 1 1 1 1 0 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 0 0 0 1 1 1 1 1 1 1 1 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 0 1 0 0 0 1 0 0 0 0 1 1 0 1 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+0 0 1 0 0 0 1 1 1 1 1 1 1 0 1
+0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 
+20 4
+13 6
+20 4
+1 2
+17 16
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0
+1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 0 0
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 0 0
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 1 1
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 1 1
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 1 1
+1 0 1 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 1 1
+1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 
+1 0 1 0 0 0 0 0 0 0 1 0 0 0 1 1 0 0 1 1 
+1 0 1 0 0 0 0 0 0 0 1 0 0 0 1 1 0 0 1 1 
+1 0 1 0 0 0 0 0 0 0 1 0 0 0 1 1 0 0 1 1 
+1 0 1 0 0 0 0 0 0 0 1 0 0 0 1 1 0 0 1 1 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0
+
+样例输出
+
+#1 1
+#2 2
+#3 2
+#4 12
+#5 15
+
+//1104
+#include<iostream>
+using namespace std;
+ 
+#define NSIZE 50
+#define CSIZE 4
+#define MAXROAD 10000
+ 
+int N;
+int C;
+int map[NSIZE][NSIZE];
+int minroad[CSIZE][NSIZE][NSIZE];
+int flag[NSIZE][NSIZE];
+int cx[CSIZE];
+int cy[CSIZE];
+int road;
+int cindex;
+int res;
+ 
+void input()
+{
+    cin>>N>>C;
+    for(int i=0;i<C;++i)
+    {
+        cin>>cx[i]>>cy[i];
+        --cx[i];
+        --cy[i];
+    }
+ 
+    for(int i=0;i<N;++i)
+    {
+        for(int j=0;j<N;++j)
+        {
+            cin>>map[i][j];
+        }
+    }
+}
+ 
+void setroad()
+{
+    for(int i=0;i<C;++i)
+    {
+        for(int j=0;j<N;++j)
+        {
+            for(int k=0;k<N;++k)
+            {
+                minroad[i][j][k] = MAXROAD;
+ 
+            }
+        }
+    }
+}
+ 
+//每次顶层dfs，找到点(x,y)到所有核心点的最短距离
+void DFS(int i,int j)
+{
+    //超出范围，走过，或 不能走
+    if(i<0 || i>=N ||  j<0 || j>=N || flag[i][j] == 1 || map[i][j] ==0 || road >= minroad[cindex][i][j])
+    {
+        return;
+    }
+ 
+    if(road>0 &&  road < minroad[cindex][i][j])
+    {
+        minroad[cindex][i][j] = road;
+    }
+ 
+    flag[i][j] = 1;
+    ++road;
+    DFS(i-1,j);
+    DFS(i,j+1);
+    DFS(i+1,j);
+    DFS(i,j-1);
+     
+    flag[i][j] = 0;
+    --road;
+}
+ 
+void output()
+{
+    for(int i=0;i<C;++i)
+    {
+        cout<<"最短路径 矩阵"<<i<<endl;
+        for(int j=0;j<N;++j)
+        {
+            for(int k=0;k<N;++k)
+            {
+                cout<<minroad[i][j][k]<<"  ";
+            }
+            cout<<endl;
+        }
+         
+    }
+}
+ 
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1104.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        setroad();
+        //res = MAXROAD;
+        for(int j=0;j<C;++j)
+        {
+            cindex = j;
+            DFS(cx[j],cy[j]);
+        }
+        //output();
+        res = MAXROAD;
+ 
+        for(int i=0;i<N;++i)
+        {
+            for(int j= 0;j<N;++j)
+            {
+                if(map[i][j] != 1) 
+                    continue;
+                int m = -1;
+                for(int k=0;k<C;++k)
+                {
+                    if(m < minroad[k][i][j])
+                        m = minroad[k][i][j];
+                }
+                if(res > m)
+                    res = m;
+ 
+            }
+        }
+        cout<<"#"<<i<<" "<<res<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1104
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:56 ms
+    
+    Memory:1740 kb
+****************************************************************/
+1105 葫芦兄弟 莲花阵法
+#include<iostream>
+using namespace std;
+#define NSIZE 15
+int map[NSIZE][NSIZE];
+int flag[NSIZE][NSIZE];
+int W,H;
+int mres;
+void input()
+{
+    cin>>W>>H;
+    for(int i=0;i<H;++i)
+    {
+        for(int j = 0;j<W;++j)
+        {
+            cin>>map[i][j];
+            flag[i][j] = 0;
+        }
+    }
+}
+ 
+ 
+ 
+void dfs(int level,int i,int j,int total)
+{
+    if(i<0 || i>=H || j<0 || j>=W || flag[i][j] == 1)
+        return ;
+ 
+    if(level == 4)
+    {
+        int res = (total + map[i][j] )*(total +map[i][j]);
+        if(mres <  res)
+        {
+            mres = res;
+        }
+        return ;
+    }
+ 
+    flag[i][j] = 1;
+ 
+    if(level == 1)
+    {
+        if(j%2 == 1 && j> 0 && j<W-1 &&  i< H-1)
+        {
+            if(i > 0)
+            {
+                int sum = map[i][j] +map[i][j+1] + map[i+1][j]+map[i][j-1];
+                sum = sum*sum;
+                if(mres < sum)
+                mres = sum;
+                sum = map[i][j] +map[i-1][j] + map[i+1][j+1]+map[i+1][j-1];
+            sum = sum*sum;
+            if(mres < sum)
+                mres = sum;
+            }
+            int sum = map[i][j] +map[i][j+1] + map[i+1][j]+map[i][j-1];
+            sum = sum*sum;
+            if(mres < sum)
+                mres = sum;
+        }
+ 
+        if(j%2 == 0  && j> 0 &&  j< W-1 && i>0  )
+        {
+            if( i<H-1)
+            {
+            int sum = map[i][j] +map[i-1][j] +map[i][j+1] + map[i][j-1];
+            sum = sum *sum;
+            if(mres < sum)
+                mres = sum;
+            sum = map[i][j] +map[i-1][j+1] +map[i+1][j] + map[i-1][j-1];
+            sum = sum *sum;
+            if(mres < sum)
+                mres = sum;
+            }
+            int sum = map[i][j] +map[i-1][j] +map[i][j+1] + map[i][j-1];
+            sum = sum *sum;
+            if(mres < sum)
+                mres = sum;
+        }   
+    }
+     
+    dfs(level+ 1,i-1,j,total + map[i][j]);
+    dfs(level+ 1,i,j+1,total + map[i][j]);
+    dfs(level+ 1,i+1,j,total + map[i][j]);
+    dfs(level+ 1,i,j-1,total + map[i][j]);
+    if(j%2)
+    {
+        dfs(level+ 1,i+1,j-1,total + map[i][j]);
+        dfs(level+ 1,i+1,j+1,total + map[i][j]);
+    }else{
+        dfs(level+ 1,i-1,j-1,total + map[i][j]);
+        dfs(level+ 1,i-1,j+1,total + map[i][j]);
+    }
+    flag[i][j] = 0;
+}
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1105.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        mres=0;
+        for(int i=0;i<H;++i)
+        {
+            for(int j=0;j<W;++j)
+            {
+                dfs(1,i,j,0);
+            }
+        }
+        //output();
+        cout<<"#"<<i<<" "<<mres<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1105
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:64 ms
+    Memory:1684 kb
+****************************************************************/
+1108: ★走地鸡入笼
+时间限制: 1 Sec  内存限制: 128 MB
+提交: 295  解决: 108
+[提交][状态][讨论版]
+题目描述
+
+农场主养了一群走地鸡，每天都需要放出来散步锻炼，到了傍晚的时候，需要将走地鸡入笼，农场主需要将安排鸡进笼，并让进笼时间最短。鸡场的鸡笼如下图一字排开，并按照从左至右1-N编号。该鸡场有三个门，每个门对应一个鸡笼。每个门依次进入一部分走地鸡，每个门的鸡群一只一只的进入，每只鸡走的速度一致为1m/s，请根据以下准则求出所有走地鸡进笼的最短时间。
+
+
+进笼要满足以下准则：
+
+1，为了避免拥挤，三个门一次只能开一个，三个门的开启可以是任一顺序。
+
+2，对于每个门口的鸡群，依次选择离自己门对应的笼子最近又没被占用的笼子。
+
+    到门口对应的笼子的距离是1M，往左右每增加一个笼子增加1M。
+
+3，对于每个门的最后一只鸡，如果有两个相同距离的选择，可以任意选一个，但是需要针对这两种情况计算，可能会有不同的结果。对于不是最后一只鸡，有两个相同距离的选择，任意选一个不影响结果。
+
+4，如果一个门的鸡群进完了，另外一个门的鸡群按照1-3步进笼。
+
+
+鸡场会给出每一个门对应的鸡笼的位置和每个门进笼的走地鸡数量。请计算最短的进笼时间。
+
+
+EX：
+
+10个鸡笼，第一号门对应4号鸡笼，5只鸡从第一号门进入；第二号门对应6号鸡笼，2只鸡从第二号门进入；第三号门对应10号鸡笼，2只鸡从第三号门进入。
+
+
+case 1，按照gate1 ->gate 2-> gate 3的顺序进入。如下图先进第一门的，再进第二门，最后进第三个门的：
+
+ 
+
+
+case 2 ，按照gate 2-> gate 1->gate 3的顺序进鸡笼。
+
+对于gate 2的最后一只鸡，也就是第二只，有两种选择，需要分别处理。如下fig1， fig2.
+
+fig 1
+
+ 
+
+fig 2
+
+然后gate 1的鸡入笼，此时对应fig1 和fig 2的结果分别为fig 3和fig 4：
+
+fig 3
+
+fig 4
+
+我们可以看到fig 3的移动总长度是18M，用时18s，而fig 4的总长度是20M，用时20s。
+
+
+题目限制：
+
+1，鸡笼数量N,5<=N<=60;
+
+2,  门的总数固定为3；
+
+3，每个门的走地鸡数量大于等于1，小于等于20；
+
+4，输入不会让走地鸡不够鸡笼住；
+
+5，不会有两只鸡同时进入，一个门进完了另外一个门进入，每个门的一只一只进入。
+
+
+输入
+
+鸡场会给出每一个门对应的鸡笼的位置和每个门进笼的走地鸡数量。
+
+第一行测试用例数量。
+
+接下来每四行是一个测试用例数据：该四行的第一行是鸡笼数量，接下来三行每一行是两个数字，第一个代表鸡场门对应的鸡笼编号，第二个代表从该门进入的鸡群数量。
+输出
+
+输出每个case的最短的进笼时间。
+样例输入
+
+5
+10
+4 5
+6 2
+10 2
+10
+8 5
+9 1
+10 2
+24
+15 3
+20 4
+23 7
+39
+17 8
+30 5
+31 9
+60
+57 12
+31 19
+38 16
+
+样例输出
+
+#1 18
+#2 25
+#3 57
+#4 86
+#5 339
+//走地鸡
+#include<iostream>
+using namespace std;
+#define NSIZE 60
+int flag[NSIZE];
+int gpos[3];
+int gflag[3];
+int gc[3];
+int N;
+int mintime;
+int t;
+ 
+ 
+void input()
+{
+    cin>>N;
+    for(int i=0;i<3;++i)
+    {
+        cin>>gpos[i]>>gc[i];
+        --gpos[i];
+    }
+ 
+    for(int i= 0;i<N;++i)
+    {
+        flag[i] = 0;
+    }
+ 
+    for(int i=0;i<3;++i)
+    {
+        gflag[i] = 0;
+    }
+}
+ 
+int left(int p)
+{
+    while(p >= 0 && flag[p] == 1) --p;
+    return p;
+}
+ 
+int right(int p)
+{
+    while(p<N && flag[p] == 1) ++p;
+    return p;
+}
+ 
+void saveflag(int save[])
+{
+    for(int i=0;i<N;++i)
+        save[i] = flag[i];
+}
+ 
+void recvflag(int save[])
+{
+    for(int i=0;i<N;++i)
+        flag[i] = save[i];
+}
+ 
+void DFS(int level)
+{
+    if(level > 3)
+    {
+        if(t < mintime)
+        {
+            mintime = t;
+        }
+        return ;
+    }
+ 
+    for(int i=0;i<3;++i)
+    {
+        if(gflag[i] == 1)
+            continue;
+        gflag[i] = 1;
+        int c = gc[i];
+        int l = gpos[i];
+        int r = gpos[i];
+        int save[NSIZE];
+        int savetime = t;
+ 
+        saveflag(save);
+ 
+        while(c>1)
+        {
+            --c;
+            l = left(gpos[i]);
+            r = right(gpos[i]);
+            if(l<0)
+            {
+                flag[r] = 1;
+                t += r - gpos[i] +1;
+            }else if(r>=N)
+            {
+                flag[l] = 1;
+                t += gpos[i]-l+1;
+            }else{
+                if(gpos[i] - l < r- gpos[i] )
+                {
+                    //left
+                    flag[l] = 1;
+                    t += gpos[i]-l+1;
+                }else if(gpos[i] - l > r- gpos[i])
+                {//right
+                    flag[r]= 1;
+                    t += r - gpos[i] +1;
+                }else{
+                    //equal
+                    flag[l] = 1;
+                    t += gpos[i]-l+1;
+                }
+            }
+        }//end while
+ 
+        if(c==1)
+        {
+            l = left(gpos[i]);
+            r = right(gpos[i]);
+            if(l<0)
+            {
+                //right
+                flag[r] = 1;
+                t += r - gpos[i] +1;
+                DFS(level+1);
+                gflag[i] =0;
+                t = savetime;
+                recvflag(save);
+            }else if(r>=N)
+            {
+                //left
+                flag[l] = 1;
+                t += gpos[i] - l +1;
+                DFS(level+1);
+                gflag[i] =0;
+                t = savetime;
+                recvflag(save);
+            }else{
+                if(gpos[i] - l < r- gpos[i] )
+                {
+                    //left
+                    flag[l] = 1;
+                    t += gpos[i]-l+1;
+                    DFS(level+1);
+                    gflag[i] =0;
+                    t = savetime;
+                    recvflag(save);
+                }else if(gpos[i] - l > r- gpos[i])
+                {//right
+                    flag[r]= 1;
+                    t += r-gpos[i]+1;
+                    DFS(level+1);
+                    gflag[i] =0;
+                    t = savetime;
+                    recvflag(save);
+                }else{
+                    //equal
+                    //left
+                    flag[l] = 1;
+                    t += gpos[i]-l+1;
+                    DFS(level+1);
+             
+                    t -= gpos[i]-l+1;
+                    flag[l] =0;
+ 
+                    //right
+                    flag[r] = 1;
+                    t += r-gpos[i]+1;
+                    DFS(level+1);
+                    gflag[i] =0;
+                    t = savetime;
+                    recvflag(save);
+                }
+            }
+        }
+    }
+}
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1108.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        t = 0;
+        mintime = 1000000;
+        DFS(1);
+        cout<<"#"<<i<<" "<<mintime<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1108
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:8 ms
+    Memory:1680 kb
+****************************************************************/
+1110: ★最大广告效益
+时间限制: 3 Sec  内存限制: 128 MB
+提交: 221  解决: 115
+[提交][状态][讨论版]
+题目描述
+
+现在有一个基于位置的广告方案：消费者在某个位置的范围内，手机可以接收到该位置推送的信息和优惠积分
+
+现在有个商店采用了这个广告方案，决定一天播放3条广告，商店希望能选取最佳的广告时间，以使消费者接收到最多的优惠积分。
+
+消费者获得优惠积分的计算方法如下：
+
+1. 3条广告的时间长度分别为：L1， L2， L3; 优惠积分分别为： P1， P2， P3
+
+2. 消费者只有在商店内看完完整的广告（即从广告的开始看到结尾），才能获得该条广告的对应优惠积分
+
+3. 当消费者获得多条广告的优惠积分的时候，只可以获得其中优惠积分最高的那条广告的积分
+
+4. 多条广告不能同时推送（但可以其中一条广告结束以后，立刻播放下一条）
+
+ 
+
+给出每条广告的时间长度L1， L2， L3 和 优惠积分P1， P2， P3；
+
+每个消费者到达商店的时间 和 待在商店的时长；
+
+为了使消费者能获得最大的优惠积分，商店需要选择最佳的广告推送时间；
+
+打印出所有消费者获得的优惠积分总和。
+
+ 
+
+例如，有7个消费者走进商店，每个消费者走进商店的时间信息如下：
+
+ 
+	消费者1 	消费者2 	消费者3 	消费者4 	消费者5 	消费者6 	消费者7
+到达时间 	2 	6 	3 	7 	1 	2 	1
+待商店时长 	2 	4 	3 	2 	1 	1 	10
+
+ 
+
+每条广告的信息如下：
+	时长 	优惠积分
+广告1 	1 	1
+广告2 	2 	2
+广告3 	3 	3
+
+ 
+
+假如广告1,2,3的开始推送时间分别为：2，7，3
+
+则消费者获得的优惠积分如下：
+	消费者1 	消费者2 	消费者3 	消费者4 	消费者5 	消费者6 	消费者7
+广告1 	1 					1 	1
+广告2 		2 		2 			2
+广告3 			3 				3
+总优惠积分：12 	1 	2 	3 	2 	0 	1 	3
+
+ 
+
+ 当我们选择的推送时间如例子所示，则可以获得最大的总优惠积分。所以，该case的答案为：12
+
+ 
+
+限制条件：
+
+1. 消费者数量 N, 到达时间 Ai， 待商店时长 Di， 每条广告的时长 L1,L2，L3，都是大于等于1 并 小于等于50的整数(1 <= N, Ai, Di, L1，L2，L3 <= 50)
+
+2. Ai + Di <= 50;    L1 + L2 + L3 <= 50
+
+3. 广告的开始时间大于等于1 并 小于等于50，但结束时间可以超过50
+
+4. 每条广告的优惠积分P1，P2，P3都是整数。范围为： 1 <= P1，P2，P3 <= 1000
+输入
+
+第一行是test cases的数目 T
+
+每个test case的第一行分别为：N, L1，L2，L3，P1，P2，P3
+
+接下来的N行分别为到达时间Ai 和 待商店时长 Di
+输出
+每个test case打印出"#X",留一个空格，然后打印出答案（X代表第几个test case，从1开始）
+样例输入
+
+5
+7 1 2 3 1 2 3
+2 2
+6 4
+3 3
+7 2
+1 1
+2 1
+1 10
+4 3 2 1 6 4 3
+1 5
+1 3
+2 4
+2 2
+3 1 2 3 7 6 4
+10 1
+11 2
+13 3
+5 2 2 1 2 5 4
+2 4
+4 6
+9 1
+14 10
+30 15
+50 31 4 1 734 134 546 
+1 39
+4 28
+9 24
+12 16
+7 29
+6 27
+12 14
+24 18
+1 34
+11 20
+5 23
+31 16
+12 38
+3 35
+10 2
+35 14
+11 34
+31 13
+6 14
+10 7
+4 17
+15 19
+7 36
+8 19
+13 20
+7 18
+27 6
+9 5
+13 14
+2 20
+9 12
+5 13
+34 12
+5 20
+17 7
+18 31
+33 6
+14 8
+4 6
+10 38
+23 10
+36 13
+17 15
+27 20
+11 21
+27 1
+31 13
+20 16
+47 2
+19 26
+
+样例输出
+
+#1 12
+#2 18
+#3 17
+#4 16
+#5 17998
+
+提示
+
+困难度:★ ★ 
+来源
+
+ADV
+[提交][状态]
+//1110 最大广告收益
+#include<iostream>
+using namespace std;
+#define NSIZE 50
+int N;
+int c[NSIZE];
+int d[NSIZE];
+int st[3];
+int  l[3];
+int  p[3];
+int t;
+int pc;
+int maxp;
+int flag[3];
+int pget[NSIZE];
+ 
+int cal()
+{
+    for(int i=0;i<N;++i)
+        pget[i] = 0;
+ 
+    for(int i=0;i<N;++i)
+    {
+        for(int j =0;j<3;++j)
+        {
+            if(c[i]<= st[j] && c[i]+d[i] >= st[j]+l[j])
+            {
+                //i顾客可以获得j广告的积分
+                //cout<<"第"<<i+1<<"顾客 获得广告"<<j+1<<"的积分"<<endl;
+                if(p[j] > pget[i])
+                    pget[i] = p[j];
+            }
+        }
+    }
+ 
+    int res=0;
+    for(int i=0;i<N;++i)
+        res += pget[i];
+    return res;
+}
+ 
+void input()
+{
+    cin>>N;
+    for(int i=0;i<3;++i)
+        cin>>l[i];
+    for(int i=0;i<3;++i)
+        cin>>p[i];
+ 
+    for(int i=0;i<N;++i)
+    {
+        cin>>c[i]>>d[i];
+    }
+ 
+    //clear 
+    for(int i=0;i<3;++i)
+    {
+        st[i]=0;
+        flag[i] =0;
+    }
+    pc = 0;
+    maxp = 0;
+}
+void DFS(int level)
+{
+    if(pc > 3 || level > 51)
+    {
+        int temp = cal();
+        if(temp > maxp)
+            maxp = temp;
+        return ;
+    }
+ 
+    for(int i=0;i<3;++i)
+    {
+        if(flag[i] == 1)
+            continue;
+        //level 时间点放广告i
+        flag[i] = 1;
+        ++pc;
+        st[i] = level;
+        DFS(level+l[i]);
+        flag[i] = 0;
+        --pc;
+    }
+ 
+    //level这个时间点不放广告
+    DFS(level +1);
+}
+ 
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1110.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        DFS(1);
+        /*st[0] = 2;
+        st[1] = 7;
+        st[2] = 3;*/
+        //cout<<cal();
+        cout<<"#"<<i<<" "<<maxp<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1110
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:1112 ms
+    Memory:1676 kb
+****************************************************************/
+1115: ★机器人加油
+时间限制: 5 Sec  内存限制: 256 MB
+提交: 90  解决: 64
+[提交][状态][讨论版]
+题目描述
+
+    有N辆车停在一行的停车场上。
+
+    停车场两边分别有一个G油加油站和D油加油站。
+
+    加油机器人从加油站携带油，并且加满停车场上的车。
+
+    如图
+
+    
+
+1.机器人从G加油站开始走，并携带2L的G油。
+
+2.机器人可以给对应类型的车加1L对应类型的油。
+
+3.机器人可以在任何时候回加油站，与当前剩下的油没有关系。
+
+4.当机器人去到加油站时，会得到2L对应的油，如果机器人有剩下油，他会扔掉。
+
+5.加油站与停车场边缘的车有 1 个单位的距离。
+
+
+给出停车场上N辆车的类型排列情况，找出机器人对所有车加满油（1L）的移动的最短距离。
+
+
+例子：
+
+机器人最短移动距离为12.
+
+
+
+机器人最短移动距离为14.
+
+
+
+
+ps.
+
+    1.车数量 N : 2<=N<=8.
+
+    2.机器人去一次加油站装2L油.
+
+    3.对车子加对应的油1L.
+
+    4.车与车之间无空车位,而且车与车的距离为1个单位.
+
+    5.加油站与车之间有1个单位的距离.
+
+
+输入
+
+第一行 T ----cases数量。
+
+每个case的第一行 ： N ----- 车数量。
+
+                第二行： 车类型的排列(1为G，2为D)。
+
+
+输出
+每个test case打印出"#X",留一个空格，然后打印出答案（X代表第几个test case，从1开始） 
+样例输入
+
+5
+3
+2 1 2
+5
+1 2 1 2 1
+5
+2 1 1 2 1
+8
+2 2 1 1 1 2 1 1
+8
+2 2 2 2 2 2 2 2
+//1115 机器人加油代码
+#include<iostream>
+using namespace std;
+#define NSIZE 10
+int cc[NSIZE];
+int gc,dc;
+int g,c;
+int N;
+int visit[NSIZE];
+int gmin,tmin;
+ 
+void input()
+{
+    cin>>N;
+    gc = 0;
+    dc =0;
+    for(int i=1;i<=N;++i)
+    {
+        cin>>cc[i];
+        if(cc[i] == 1)
+        {
+            ++gc;
+        }else
+        {
+            ++dc;
+        }
+    }
+}
+ 
+int gameover()
+{
+    for(int i=1;i<=N;++i)
+    {
+        if(visit[i] == 0)
+            return 0;
+    }
+    return 1;
+}
+ 
+void dfs(int pre)
+{
+    if(tmin >= gmin)
+    {
+        return;
+    }
+    if(gameover())
+    {
+        if(gmin > tmin)
+        {
+            gmin = tmin;
+        }
+    }
+ 
+    for(int i=0;i<=N+1;++i)
+    {
+        if(pre==0 && i==0) continue;
+        if(pre == N+1 && i== N+1) continue;
+        if(gc == 0 && i==0) continue;
+        if(dc == 0 && i== N+1) continue;
+        int saveg = g;
+        int savec = c;
+ 
+        if(i == 0)
+        {
+            //add oil  G
+            tmin += pre-i;
+            g = 1;
+            c = 2;
+            dfs(0);
+            tmin -= pre-i;
+            g = saveg;
+            c = savec;
+        }else if(i==N+1)
+        {
+            //add oil D
+            tmin += N+1-pre;
+            g = 2;
+            c = 2;
+            dfs(N+1);
+            tmin -= N+1-pre;
+            g = saveg;
+            c = savec;
+        }else{
+            if( c ==0)
+            {
+                continue;
+            }else{
+                if((cc[i] == 1 && g !=1) || (cc[i] == 2 && g !=2) )
+                {
+                    continue;
+                }else{
+                    //add oil for car i
+                    if(visit[i] == 1) continue;
+                    visit[i] = 1;
+                    --c;
+                    tmin += (i>pre? i-pre:pre-i);
+                    gc -= (cc[i] == 1?1:0);
+                    dc -= (cc[i] ==2?1:0);
+                    dfs(i);
+                    gc += (cc[i] == 1?1:0);
+                    dc += (cc[i] == 2?1:0);
+                    tmin -= (i>pre? i-pre:pre-i);
+                    ++c;
+                    visit[i] = 0;
+                }
+            }
+        }
+    }
+}
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1115.txt","r",stdin);
+    cin>>T;
+    for(int li=1;li<=T;++li)
+    {
+         
+        input();
+        g = 1;
+        c =2;
+     
+        gmin = 1000000000;
+        dfs(0);
+        cout<<"#"<<li<<" "<<gmin<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1115
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:44 ms
+    Memory:1676 kb
+****************************************************************/
+1120: ★电池充放电
+时间限制: 10 Sec  内存限制: 256 MB
+提交: 325  解决: 136
+[提交][状态][讨论版]
+题目描述
+
+现在需要对一批手机进行充放电测试，测试一组一组进行，每一组由充电和放电组成，先充电后放电。
+
+为了保障手机电池安全，每台手机的最大充电量是限定的。整个测试过程手机电量（包括初始时）不能超过最大限定值K，也不能低于0，否则为不安全操作。
+
+现在测试人员时间有限，需要将手机先充电到可以进行完N组测试的最低充电量。这一组一组的测试连续进行的，但是这N组测试的测试顺序可以是任意调整的，只要找到一种方案能安全测过N次充放电测试即可。
+
+请帮忙找出满足条件的最小手机电量初始值 ；如果找不到，请输出-1。
+输入
+
+第一行，需要测试的手机手机数量M。
+
+之后每三行为一台手机的数据，一共M*3行，分别是：
+
+第一行：N（手机需要测试的组数， 1<=N<=8 ），K（手机允许的最大充电量，50<=K<=200)
+
+第二行：对应N组测试的充电电量；
+
+第三行：对应N组测试的放电电量；
+
+
+输出
+
+计算每一台手机的最小可能的初始电量值。
+
+如果不能完成测试，输出-1；
+样例输入
+
+3
+3 100
+75 45 80
+30 55 95
+2 100
+65 90
+20 30
+5 150
+35 105 100 45 75
+115 75 55 35 105
+
+样例输出
+
+#1 15
+#2 -1
+#3 25
+//1120代码
+#include<iostream>
+using namespace std;
+#define SIZE 9
+int K;
+int N;
+int mi,ma;
+int miB,maB;
+int P[SIZE];
+int V[SIZE];
+int flag[SIZE];
+int globeMin;
+ 
+void input()
+{
+    cin>>N>>K;
+    for(int i =0;i<N;++i)
+        cin>>P[i];
+    for(int i=0;i<N;++i)
+        cin>>V[i];
+}
+ 
+void DFS(int depth1,int mi1,int ma1,int miB1,int maB1)
+{
+    if(depth1 > N && mi1 < globeMin)
+    {
+        globeMin = mi1;
+        return ;
+    }
+    int i;
+    for(i=0;i<N;++i)
+    {
+         
+        if(flag[i] == 1)
+            continue;
+        int depth = depth1;
+        int mi = mi1;
+        int ma = ma1;
+        int miB = miB1;
+        int maB = maB1;
+ 
+        //select i
+        if(P[i] + miB > K)
+        {  
+            continue;
+        }else{
+            int cut = P[i]+maB -K;
+            if(cut > 0)
+            {
+                ma =  ma - cut;
+                miB = miB + P[i];
+                maB = maB+  P[i] - cut;
+            }else {
+                miB += P[i];
+                maB += P[i];
+            }
+        }//end else
+ 
+        if(maB - V[i] <0)
+        {
+            continue;
+        }else{
+            int add = V[i] - miB;
+            if(add > 0)
+            {
+                mi += add;
+                miB =miB  - V[i]+ add;
+                maB -= V[i];
+            }else{
+                miB -= V[i];
+                maB -= V[i];
+            }
+        }
+        flag[i] = 1;
+//      cout<<"depth"<<depth1<<"i"<<i<<endl;
+//      cout<<"select "<<i;
+//      cout<<"mi:"<<mi<<"ma:"<<ma<<"miB:"<<miB<<"maB:"<<maB<<endl;
+        DFS(depth+1,mi,ma,miB,maB);
+        flag[i] =0;
+    }//end for
+}
+ 
+ 
+ 
+int main( )
+{
+    int T;
+    //freopen("D:\\1120.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        globeMin = K;
+        DFS(1,0,K,0,K);
+        cout<<"#"<<i<<" ";
+        if(globeMin == K)
+        {
+            cout<<-1<<endl;
+        }
+        else
+        {
+        cout<<globeMin<<endl;
+        }
+    }
+    return 0;
+}
+ 
+/**************************************************************
+    Problem: 1120
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:100 ms
+    Memory:1676 kb
+****************************************************************/
+1122: ★送外卖
+时间限制: 10 Sec  内存限制: 256 MB
+提交: 259  解决: 141
+[提交][状态][讨论版]
+题目描述
+
+外卖小哥 要从一个起始点（饭店） ， 拿到很多份外卖，全部送到不同的客户家中后， 到达另一个饭点，取新的外卖订单
+
+由于客户下单的时间顺序是先后的， 所以饭点老板要求 外卖小哥 按照 下单先后顺序，依次送外卖。
+
+饭点周边的路， 刚好是方方正正的， 因此可以用一个N*N的矩阵 来表示 地图 ， 如下图：
+
+ 
+
+如上面的图所示上， 总共标记了 M 个点， M=4
+其中， 1 表示 饭点所在的位置 （起始点
+          2~3 表示 需要送外卖的地址
+          4  表示 骑士的下一个取外卖的饭点位置
+
+同时， 由于 道路施工， 有些道路无法通行， 外卖小哥 需要绕道送外卖
+
+ 
+
+给定一个 N*N 的地图， 以及地图上标记的点数
+写一个程序， 帮外卖小哥算出 从起始饭点，按照客户的下单顺序送外外卖后， 到达另一个饭店，取新的外卖订单
+所能走的路线中， 最短路线的条数 。
+
+举例：
+
+如下图， 外卖小哥从 饭店（1号点） 到达第一个外卖 目标点（2号点）， 最短路径是：3 段路， 有三种 走法。
+
+ 
+
+ 
+
+ 
+
+下一步， 外卖小哥从2出发， 送外卖到 3号点，  最短路径是4 ， 也是有三种走法 （图省略）
+
+最终， 外卖小哥从3出发， 到达4号点 （新的饭点） ， 由于 中间有障碍，因此最短路径是4 ， 有两种走法， 如下图：
+
+ 
+
+
+因此， 外卖小哥按照最短路径的 要求， 可行的走法共有： 3*3*2=18 种
+
+ 
+
+
+【限制条件】
+1. 地图的大小 N的范围是： 7≥ N≥3
+2. 地图上标记的点的个数M 的范围： 5≥ M≥2
+
+3. 外卖小哥 只能在地图范围内 选择路径 送餐
+4. 允许外卖小哥经过被标记的点， 到达送餐点以及新的饭点（最终目标）
+5. 禁止外卖小哥 通过正在维修的道路
+输入
+第一行，给定 测试例子的个数 T
+接下来 按顺序逐个输入测试例子
+第一行给定 地图的规模N， 以及标记的点数M
+在接下来的N 行 ， 给出N*N的地图数据。 被标记的M个点， 按照1~M 按照顺序 给出 。 障碍点在地图中， 用“9” 来表示
+输出
+输出T行，每行以#tc开头，tc代表测试用例编号，接空格，然后输出 最短路线的可能条数
+如果没有可行的路径，请输出0
+样例输入
+
+5
+5 4    
+1 0 0 0 0
+0 0 0 0 0
+0 2 0 4 0
+9 0 0 9 0
+0 0 0 3 0
+3 3  
+1 0 0
+0 2 9 
+0 9 3
+6 5 
+0 0 0 0 0 9
+0 0 0 0 9 0
+0 0 0 5 0 0
+3 9 9 0 0 9
+2 0 0 0 0 0
+1 0 0 0 0 4
+7 2
+0 0 0 0 0 0 0
+0 9 9 9 9 9 0
+0 0 0 0 0 9 0
+0 9 9 0 0 9 0
+0 9 0 0 2 9 0
+0 9 9 9 9 9 0
+0 0 0 0 0 0 1
+7 5  
+1 3 0 0 0 0 0 
+9 0 0 0 0 0 0
+0 0 5 0 0 0 0 
+0 0 0 9 0 0 0
+0 0 0 0 0 0 0 
+0 0 0 0 0 0 4
+0 0 0 0 0 0 2
+
+样例输出
+
+#1 18
+#2 0
+#3 42
+#4 3
+#5 156508320
+//1122送外卖
+#include<iostream>
+using namespace std;
+#define SIZE 7
+int MAP[SIZE][SIZE];
+int N;
+int M;
+int minRoad;
+int endX,endY;
+int count[6];
+int curPoint;
+int X[6];
+int Y[6];
+ 
+ 
+void input()
+{
+    cin>>N>>M;
+    for(int i=0;i<N;++i)
+    {
+        for(int j=0;j<N;++j)
+            cin>>MAP[i][j];
+    }
+}
+ 
+void findPoint()
+{
+    for(int i=0;i<=M;++i)
+    {
+        X[i] = 0;
+        Y[i] = 0;
+    }
+    for(int i=0;i<N;++i)
+    {
+        for(int j=0;j<N;++j)
+        {
+            if(MAP[i][j]!=0 && MAP[i][j] !=9)
+            {
+                X[MAP[i][j]] = i;
+                Y[MAP[i][j]] = j;
+            }
+        }
+    }
+}
+ 
+void clearMap()
+{
+    for(int i=0;i<N;++i)
+    {
+        for(int j=0;j<N;++j)
+        {
+            if(MAP[i][j] != 9)
+                MAP[i][j] = 0;
+        }
+    }
+}
+ 
+void DFS(int level,int startx,int starty)
+{
+    if(level  > minRoad || startx < 0 || startx>=N || starty<0 || starty>=N || MAP[startx][starty] !=0 )
+    {
+        return;
+    }
+ 
+ 
+         
+ 
+    if(startx == endX && starty == endY)
+    {
+        if(level <  minRoad)
+        {
+            minRoad = level;
+            count[curPoint] = 1;
+        }else{
+            count[curPoint]++;
+        }
+        return ;
+    }
+    MAP[startx][starty] =1;
+    DFS(level+1,startx-1,starty);
+    DFS(level+1,startx,starty+1);
+    DFS(level+1,startx+1,starty);
+    DFS(level+1,startx,starty-1);
+    MAP[startx][starty] =0;
+}
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1122.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        findPoint();
+        for(int j=0;j<=M;++j)
+            count[j] =0;
+        for(int j=2;j<=M;++j)
+        {
+            minRoad =10000;
+            curPoint = j;
+            endX = X[j];
+            endY = Y[j];
+            clearMap();
+            DFS(0,X[j-1],Y[j-1]);
+            //cout<<"minRoad:"<<minRoad<<endl;
+        }
+        int res = 1;
+        for(int j=2;j<=M;++j)
+            res *= count[j];
+        cout<<"#"<<i<<" "<<res<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1122
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:12 ms
+    Memory:1676 kb
+****************************************************************/
+1128: ★黑白棋游戏
+时间限制: 3 Sec  内存限制: 256 MB
+提交: 166  解决: 97
+[提交][状态][讨论版]
+题目描述
+2名玩家正在玩黑白棋游戏，棋盘是水平一字排开的N个格子。
+
+这个游戏的有以下5条规则：
+规则1：
+玩家1放黑子，然后玩家2放白子，如此反复。棋子可以放在任意空格上。
+
+
+规则2：
+
+如果当前玩家放置棋子（放置的棋子用星号表示）后，对手的棋子是连续的而且两侧是当前玩家的棋子，那么这些对手的棋子将会被替换成当前玩家的棋子（如下图的红色箭头所示）。
+
+
+规则3：
+
+如果当前玩家放置棋子（放置的棋子用星号表示）后，把对手的连续的棋子“困”在一侧，那么这些对手的棋子也会被替换成当前玩家的棋子（如下图的红色箭头所示）。
+
+
+--------------------------------------------------------------------------------
+
+
+
+规则4：
+
+棋子可以放置在任何空格。如下图所示也是允许的，但这样不会替换任何棋子（黑色白色都不会被替换）。
+
+
+规则5：
+
+玩家的得分是由棋盘上玩家的棋子个数决定的。
+
+譬如如下图的棋盘，玩家1（黑色棋子）的分数是6分，玩家2（白色棋子）的分数是4分。
+
+
+1. 游戏结束前，每个玩家有3轮下子的机会。
+
+2. 当前下棋的是玩家1（黑色棋子）。
+
+3. 假设玩家2每次都是放在棋盘最左侧的空格。
+
+请求出游戏结束时，玩家1（黑色棋子）能获得的最高分数。
+
+
+举个栗子：
+
+棋盘当前的状态是：
+
+3轮下棋后，玩家1能获得的最高分是9分。
+
+下图中，黑色星星表示玩家1的落子，白色星星表示玩家2的落子。
+
+
+【限制条件】
+
+1. 6≤N≤30。
+
+2. 给定的初始状态的棋盘，空格位置大于等于6个。
+
+
+
+输入
+
+第一行一个正整数 T，表示测试case数量。
+
+接下来是每一个测试case：
+
+第一行是一个正整数，N。
+
+第二行是N个自然数，表示棋盘的初始状态，0表示空格，1表示已放置黑色棋子，2表示已放置白色棋子。
+
+请参考sample input。
+输出
+
+打印"#t", 然后空格，然后答案。
+
+t表示测试case序号。
+
+请参考sample output。
+样例输入
+
+5
+15
+0 2 2 0 1 2 2 1 0 0 0 0 2 0 2
+6
+0 0 0 0 0 0
+10
+0 2 0 0 1 0 0 0 0 0
+25
+1 2 0 2 0 1 0 1 1 2 0 0 0 2 2 0 1 0 1 0 1 1 2 0 1
+30
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+样例输出
+
+#1 9
+#2 0
+#3 4
+#4 16
+#5 3
+、//1128 黑白棋
+include<iostream>
+using namespace std;
+#define SIZE  31
+int M[SIZE];
+int N;
+int gScore;
+ 
+void input()
+{
+    cin>>N;
+    for(int i=0;i<N;++i)
+        cin>>M[i];
+}
+ 
+int cal()
+{
+    int res =0;
+    for(int i=0;i<N;++i)
+    {
+        if(M[i] == 1)
+            ++res;
+    }
+    return res;
+}
+ 
+void output()
+{
+    for(int i=0;i<N;++i)
+        cout<<M[i]<<" ";
+    cout<<endl;
+}
+ 
+void DFS(int level)
+{
+    if( level >3)
+    {
+        int score = cal();
+        if(score > gScore)
+            gScore = score;
+        return;
+    }//end if
+ 
+    for(int i=0;i<N;++i)
+    {
+        if(M[i] !=0)
+            continue;
+        int save[SIZE];
+        for(int k=0;k<N;++k)
+            save[k] = M[k];
+        //output();
+        M[i] = 1;
+        //cout<<"man 1 Insert point:"<<i<<endl;
+        //left 
+        int j;
+        j = i-1;
+        while(j>=0 && M[j] == 2) --j;
+        if(j < 0)
+        {
+            for(int k=0;k<i;++k)
+                M[k] = 1;
+        }else if(M[j] == 1)
+        {
+            for(int k= j+1;k<i;++k)
+                M[k] = 1;
+        }
+ 
+        //right
+        j = i+1;
+        while(j<N && M[j] == 2) ++j;
+        if(j>=N)
+        {
+            for(int k = i+1;k<N;++k)
+                M[k] = 1;
+        }else if(M[j] == 1)
+        {
+            for(int k= i+1;k<j;++k)
+                M[k] = 1;
+        }
+        //output();
+     
+        //find left
+        int l;
+        for(l=0;l<N;++l)
+        {
+            if(M[l] == 0)
+            {
+                M[l] = 2;
+                break;
+            }
+        }
+ 
+        //cout<<"man 2 Insert point:"<<l<<endl;
+ 
+        j = l-1;
+        //left
+        while(j>=0 && M[j] == 1) --j;
+        if(j<0)
+        {
+            for(int k= 0;k<l;++k)
+                M[k] = 2;
+        }else if(M[j] == 2)
+        {
+            for(int k= j+1;k<l;++k)
+                M[k] = 2;
+        }
+ 
+        //right
+        j = l+1;
+        while(j<N && M[j] ==1)  ++j;
+        if(j>=N)
+        {
+            for(int k=l+1;k<N;++k)
+                M[k] = 2;
+        }else if(M[j] == 2)
+        {
+            for(int k= l+1;k<j;++k)
+                M[k] = 2;
+        }
+ 
+        //output();
+ 
+        DFS(level +1);
+ 
+        for(int k =0;k<N;++k)
+            M[k] = save[k];
+    }
+}
+ 
+ 
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1128.txt","r",stdin);
+    //freopen("D:\\output.txt","w",stdout);
+    cin>>T;
+    for(int i=1;i<= T;++i)
+    {
+        input();
+        gScore = 0;
+        DFS(1);
+        cout<<"#"<<i<<" "<<gScore<<endl;
+    }
+    return 0;
+}
+ 
+/**************************************************************
+    Problem: 1128
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:16 ms
+    Memory:1676 kb
+****************************************************************/
+1129: ★消消乐
+时间限制: 3 Sec  内存限制: 256 MB
+提交: 87  解决: 63
+[提交][状态][讨论版]
+题目描述
+
+2016/11/23 ADV 考试原题， 内容描述待完善
+
+Lucy 在玩 消消乐 游戏，但她只有 N 个导弹（1<= N <= 4）, 你能帮她找出最优方案使得最后剩下的block数量最少么？
+
+
+在 W * H 的区域内， 自底向上堆叠着很多 block
+
+W 是 水平方向，  H 是垂直方向
+
+（2<=W<=12, 2<=H<=15）
+
+
+Lucy 从上往下发射导弹可以消除最顶上的一个block
+
+每个 block 消除时候会发生十字型爆炸，  爆炸半径  block 内的数字所示
+
+
+一个block爆炸是，附近其他block在爆炸范围内的block也会被引爆， 从而发生连锁反应
+
+
+                     
+
+
+连锁反应结束后， 悬空的block会下落
+
+
+输入
+
+第一行 T 表示测试case数量 （5<=T<=50）
+
+下面一行开始是case的具体输入
+
+每个case的第一行 分别是 N W H
+
+后面的H行 给出每个  W 个 block 的信息， 没有 block的区域用 0 表示
+输出
+
+输出  每个case 在投放N 个导弹后， 最少的block个数
+样例输入
+
+5
+3 10 10
+0 0 0 0 0 0 0 0 0 0
+1 0 1 0 1 0 0 0 0 0
+1 0 3 0 1 1 0 0 0 1
+1 1 1 0 1 2 0 0 0 9
+1 1 4 0 1 1 0 0 1 1
+1 1 4 1 1 1 2 1 1 1
+1 1 5 1 1 1 1 2 1 1
+1 1 6 1 1 1 1 1 2 1
+1 1 1 1 1 1 1 1 1 5
+1 1 7 1 1 1 1 1 1 1
+2 9 10
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 1 0 0 0 0 0 0 0
+0 1 0 0 0 0 0 0 0
+1 1 0 0 1 0 0 0 0
+1 1 0 1 1 1 0 1 0
+1 1 0 1 1 1 0 1 0
+1 1 1 1 1 1 1 1 0
+1 1 3 1 6 1 1 1 1
+1 1 1 1 1 1 1 1 1
+3 6 7
+1 1 0 0 0 0
+1 1 0 0 1 0
+1 1 0 0 4 0
+4 1 0 0 1 0
+1 5 1 0 1 6
+1 2 8 1 1 6
+1 1 1 9 2 1
+4 4 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+1 0 0 0 
+1 0 0 0 
+1 0 0 0 
+1 0 0 0 
+1 0 5 0 
+1 1 1 0 
+1 1 1 9 
+1 1 1 1 
+1 6 1 2 
+1 1 1 5 
+1 1 1 1 
+2 1 1 2 
+4 12 15
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9 9 9 9
+
+样例输出
+
+#1 12
+#2 27
+#3 4
+#4 8
+#5 0
+//1129 代码
+#include<iostream>
+using namespace std;
+#define HSIZE 15
+#define WSIZE 12
+ 
+int W,H,N;
+int map[HSIZE][WSIZE];
+int px[HSIZE*WSIZE];
+int py[HSIZE*WSIZE];
+int pc[HSIZE*WSIZE];
+int visit[HSIZE][WSIZE];
+int start,tail;
+int minblock;
+ 
+void input()
+{
+    cin>>N>>W>>H;
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            cin>>map[i][j];
+        }
+    }
+}
+ 
+void output()
+{
+    cout<<"block"<<endl;
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            cout<<map[i][j];
+        }
+        cout<<endl;
+    }
+}
+ 
+void add(int i,int j)
+{
+    if(i<0 || i>=H || j<0 || j>=W || map[i][j] ==0)
+        return;
+    px[tail] = i;
+    py[tail] = j;
+    pc[tail] = map[i][j];
+    tail++;
+    map[i][j] = 0;
+}
+ 
+void xiao(int l)
+{
+    int i = 0;
+    int j=l;
+ 
+    while(i<=H-1 && map[i][j] ==0) ++i;
+    if(i<=H-1)
+    {
+        px[0] = i;
+        py[0] = j;
+        pc[0] = map[i][j];
+        tail = 1;
+        map[i][j] = 0;
+        start =0;
+        while(start<tail)
+        {
+            int i = px[start];
+            int j = py[start];
+            int c= pc[start];
+            ++start;
+            for(int k=1;k<c;++k)
+            {
+                add(i-k,j);
+                add(i,j+k);
+                add(i+k,j);
+                add(i,j-k);
+            }
+        }
+        int k =0;
+        for( j= 0;j<W;++j)
+        {
+            for(i= H-1;i>=0;--i)
+            {
+                if(map[i][j] !=0 ) continue;
+                for(k=i-1;k>=0;--k)
+                {
+                    if(map[k][j] !=0)
+                            break;
+                }
+                if(k >=0)
+                {
+                    map[i][j] = map[k][j];
+                    map[k][j] = 0;
+                }else{
+                    i=0;
+                }
+            }
+        }
+    }
+}
+ 
+int cal()
+{
+    int res =0;
+    for(int i=H-1;i>=0;--i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            if(map[i][j] !=0)
+                ++res;
+        }
+    }
+    return res;
+}
+ 
+void savemap(int smap[HSIZE][WSIZE])
+{
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            smap[i][j] = map[i][j];
+        }
+    }
+}
+ 
+void recvmap(int smap[HSIZE][WSIZE])
+{
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            map[i][j] = smap[i][j];
+        }
+    }
+}
+ 
+void dfs(int level)
+{
+    if(level > N)
+    {
+        int temp = cal();
+        if(temp < minblock)
+        {
+            minblock = temp;
+        }
+        return ;
+    }
+    int smap[HSIZE][WSIZE];
+    savemap(smap);
+    for(int i=0;i<W;++i)
+    {
+//      output();
+        xiao(i);
+//     cout<<"after:"<<endl;
+//      output();
+        dfs(level+1);
+         
+        recvmap(smap);
+    }
+}
+ 
+ 
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1129.txt","r",stdin);
+    cin>>T;
+    for(int li=1;li<=T;++li)
+    {
+        minblock = 10000000;
+        input();
+        dfs(1);
+        cout<<"#"<<li<<" "<<minblock<<endl;
+    }
+    return 0;
+}
+ 
+/**************************************************************
+    Problem: 1129
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:180 ms
+    Memory:1684 kb
+****************************************************************/
+1134: ★畅玩动物园
+时间限制: 13 Sec  内存限制: 256 MB
+提交: 188  解决: 104
+[提交][状态][讨论版]
+题目描述
+
+星期天，Lucy和她的男朋友去动物园玩。
+
+因为动物的作息不同，每种动物有各自的开放时间和关闭时间。
+
+为了能够有最多的拍照时间，Lucy和男朋友决定分头行动。
+
+
+比如，给出动物的开放时间如下：
+
+有以下方案：
+
+1）Lucy看动物1，男朋友看动物2和动物3.
+
+     拍照时间总和为：360min+480min=840min。
+
+。。。
+
+4）Lucy看动物2和动物3，男朋友看动物4.
+
+     拍照时间总和为：480min+420min=900min。
+
+。。。
+
+综上，拍照时间最长为900min。
+
+
+
+
+输入
+
+第一行：T ，[1,50]
+
+第二行：N， [5,14]
+
+接下来的N行：HH MM HH MM，代表动物的开放时间和关闭时间。HH,[8，18]。MM取值范围为0,10,20,30,40,50。
+
+
+输出
+
+#T ans
+
+
+样例输入
+
+5 
+5
+8 0 14 0 
+9 0 12 0 
+13 0 18 0 
+10 0 17 0 
+10 30 13 30 
+6 
+8 0 18 10 
+13 10 15 20 
+10 50 13 30 
+13 20 18 10 
+12 0 12 50 
+12 0 15 30 
+8 
+10 40 12 20 
+9 10 15 10 
+11 0 16 30 
+11 50 15 50 
+8 30 13 50 
+15 0 18 10 
+9 30 10 10 
+13 10 18 30 
+10 
+10 50 13 50 
+9 40 12 0 
+8 20 15 10 
+8 30 10 20 
+11 40 13 20 
+8 20 13 50 
+14 20 18 10 
+15 0 16 40 
+8 0 16 50 
+10 0 11 10 
+14 
+10 40 15 50 
+9 40 10 0 
+12 40 16 10 
+12 40 13 0 
+12 20 17 40 
+11 40 17 30 
+9 0 12 0 
+16 10 17 30 
+17 0 18 40 
+8 40 12 40 
+8 20 14 30 
+12 40 18 40 
+15 0 16 20 
+9 40 10 10 
+
+样例输出
+
+#1 900
+#2 950
+#3 970
+#4 1090
+#5 1150
+#include<iostream>
+using namespace std;
+#define NSIZE 14
+int ast[NSIZE];
+int aet[NSIZE];
+int endTime[2];
+int maxTime;
+int tempTime;
+int N;
+ 
+int convertHtoM(int hh,int mm)
+{
+    return hh*60+mm;
+}
+ 
+void input()
+{
+    int HH,MM;
+    cin>>N;
+    for(int i=0;i<N;++i)
+    {
+        cin>>HH>>MM;
+        ast[i]=convertHtoM(HH,MM);
+        cin>>HH>>MM;
+        aet[i]=convertHtoM(HH,MM);
+    }
+}
+ 
+//
+void quickSort(int left,int right)
+{
+ 
+    if(left>= right)
+        return;
+    int saveleft = left;
+    int saveright = right;
+    int key = left ++;
+    while(left<=right)
+    {
+        while(left<= right && ast[key] <= ast[right]) --right;
+        if(left<= right)
+        {
+            int a,b;
+            a = ast[right]; b= aet[right];
+            ast[right] = ast[key] ;aet[right] = aet[key];
+            ast[key] = a; aet[key] = b;
+            key = right--;
+        }
+ 
+        while(left<= right && ast[left] <= ast[key]) ++left;
+        if(left<= right)
+        {
+            int a,b;
+            a = ast[left]; b= aet[left];
+            aet[left] = aet[key];ast[left] = ast[key] ;
+            ast[key] = a; aet[key] = b;
+            key = left++;
+        }
+        quickSort(saveleft,key-1);
+        quickSort(key+1,saveright);
+    }
+}
+ 
+void output()
+{
+    for(int i=0;i<N;++i)
+        cout<<ast[i] << " ";
+    cout<<endl;
+    for(int i=0;i<N;++i)
+        cout<<aet[i] << " ";
+    cout<<endl;
+}
+             
+ 
+//start 
+void DFS(int level)
+{
+    if(level >= N )
+    {
+        if(tempTime > maxTime)
+            maxTime = tempTime;
+        return;
+    }
+ 
+    for(int i=0;i<2;++i)
+    {
+        if(ast[level] >= endTime[i])
+        {
+            if(i==1 && endTime[0] == endTime[1]) 
+                //两者状态相同，只加入第一个即可
+                continue;
+            //can add into i
+            int saveTime1 = tempTime;
+            int saveTime2 = endTime[i];
+            tempTime += aet[level] -ast[level];
+            endTime[i] = aet[level];
+            DFS(level+1);
+            tempTime = saveTime1;
+            endTime[i] = saveTime2;
+        }
+        //两者都不能加入，则直接进入下一层
+        DFS(level+1);
+    }
+}
+ 
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1134.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        maxTime = 0;
+        quickSort(0,N-1);
+        //output();
+        DFS(0);
+        cout<<"#"<<i<<" "<<maxTime<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1134
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:468 ms
+    Memory:1676 kb
+****************************************************************/
+1136: ★数字连接
+时间限制: 10 Sec  内存限制: 128 MB
+提交: 120  解决: 51
+[提交][状态][讨论版]
+题目描述
+
+有N (1<=N<=9) 个数字，每个数字有2-6个数字组成，每个数字可能是1、2、3、4其中之一。现在规定：
+
+1. 如果一个数字的尾部可以和另一个数组的头部匹配则两个数字可以连接。比如：‘12’ 和‘23’ 可以连接成‘123’，因为‘12’的尾部是2，和‘23’的头部2匹配；再比如：‘123’和‘234’可以连接成‘1234’，因为‘123’的尾部23和‘234’的头部23匹配；
+
+2. 两个数字连接后产生一个新的数字，但是产生的数字可能不唯一。比如‘333’和‘332’，可以连接成‘33332’，也可以连接成‘3332’
+
+3. 如果两个数字连接产生一个新的数字，那么这两个数字用完后就作废，不能再次使用，而产生的新数字可以用来和其它没用过的数字进行连接
+
+4. 现在需要你对这些数字进行连接，尽可能使得最终连接出来的数字最大（不一定每个给定的数都用上）
+
+要求输出最大的数字是多少位数。比如，原来N==3，三个原始数字分别是123，141，234，那么先把141和123连接成14123，然后把新数14123和234连接成141234，则可以得到最优解，答案输出6。
+输入
+5
+3
+123
+141
+234
+2
+24
+123
+4
+343
+2433
+2213
+3333
+8
+434121
+441
+4234
+223142
+23413
+14342
+224
+234
+9
+221111
+212111
+122111
+121232
+211112
+122112
+211111
+211121
+121122
+输出
+
+#1 6
+
+#2 3
+
+#3 9
+
+#4 24
+
+#5 46
+样例输入
+
+5
+3
+123
+141
+234
+2
+24
+123
+4
+343
+2433
+2213
+3333
+8
+434121
+441
+4234
+223142
+23413
+14342
+224
+234
+9
+221111
+212111
+122111
+121232
+211112
+122112
+211111
+211121
+121122
+
+样例输出
+
+#1 6
+#2 3
+#3 9
+#4 24
+#5 46
+//1136数字连接
+#include<iostream>
+using namespace std;
+//#define debug
+#define NSIZE 9
+int gmax[NSIZE*6];
+int tmax[NSIZE*6];
+int gc,tc;
+ 
+int num[NSIZE][6];
+int nc[NSIZE];
+int N;
+ 
+int visit[NSIZE];
+ 
+void convert(int index,int a)
+{
+    int c =0;
+    int ta = a;
+    while(ta)
+    {
+        ++c;
+        ta /=10;
+    }
+    nc[index] = c;
+    for(int i=c-1;i>=0;--i)
+    {
+        num[index][i] = a%10;
+        a /=10;
+    }
+}
+void input()
+{
+    cin>>N;
+    int a;
+    for(int i=0;i<N;++i)
+    {
+        cin>>a;
+        convert(i,a);
+    }
+}
+ 
+int canmerge(int index,int n)
+{
+    if(n>tc) return 0;
+    for(int i=n-1;i>=0;--i)
+    {
+        if(num[index][i] != tmax[tc+i-n])
+            return 0;
+    }
+    for(int i=0;i<nc[index]-n;++i)
+        tmax[tc+i] = num[index][n+i];
+    return 1;
+}
+ 
+void save(int savenum[])
+{
+    for(int i=0;i<tc;++i)
+        savenum[i]= tmax[i];
+}
+ 
+ 
+void recv(int savenum[])
+{
+    for(int i=0;i<tc;++i)
+        tmax[i]= savenum[i];
+}
+ 
+ 
+void dfs(int level)
+{
+    if(level >=N)
+    {
+        if(tc>=gc)
+        {
+            for(int i=0;i<tc;++i)
+                gmax[i] = tmax[i];
+            gc = tc;
+        }
+        return ;
+    }
+ 
+    int saven = tc;
+    int savenum[NSIZE*6];
+    save(savenum);
+    for(int i=0;i<N;++i)
+    {
+        if(visit[i]) continue;
+        visit[i] = 1;
+        int conn = 0;
+        for(int n =1;n<=nc[i];++n)
+        {
+            if(canmerge(i,n) == 1)
+            {
+                 
+                conn = 1;
+                tc+=nc[i] -n;
+                dfs(level+1);
+                tc-=nc[i] -n;
+                recv(savenum);
+            }
+        }
+ 
+        if(conn==0)
+        {
+            dfs(level+1);
+        }
+        visit[i] = 0;
+    }
+}
+ 
+void output()
+{
+    for(int i=0;i<N;++i)
+    {
+        for(int j=0;j<nc[i];++j)
+            cout<<num[i][j];
+        cout<<endl;
+    }
+}
+ 
+void out(int i)
+{
+    cout<<"#"<<i<<" ";
+    /*for(int i=0;i<gc;++i)
+        cout<<gmax[i];*/
+    cout<<gc<<endl;
+}
+ 
+void cp(int index)
+{
+    for(int i=0;i<nc[index];++i)
+        tmax[i] = num[index][i];
+}
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1136.txt","r",stdin);
+    cin>>T;
+    for(int li= 1;li<=T;++li)
+    {
+        input();
+        gc = 0;
+        tc =0;
+        for(int i=0;i<N;++i)
+        {
+            cp(i);
+            visit[i] =1;
+            tc += nc[i];
+            dfs(1);
+            visit[i] =0;
+            tc -= nc[i];
+        }
+        out(li);
+    }
+     
+    return 0;
+}
+ 
+ 
+/**************************************************************
+    Problem: 1136
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:8436 ms
+    Memory:1680 kb
+    /**************************************************************
+    142: ★滑板棋游戏
+时间限制: 3 Sec  内存限制: 256 MB
+提交: 64  解决: 24
+[提交][状态][讨论版]
+题目描述
+
+Lucy根据2048这款游戏新开发了一个滑板棋游戏，游戏给出一个H*W（4<=H,W<=10）规模的棋盘，有两个颜色的棋子（分别用1，2表示），通过滑动在一定次数内将棋子移动到对应的终点位置（分别用-1，-2表示）。此外，棋盘上还设置了障碍物，当滑动的时候障碍物不会移动，棋子在碰到障碍物的时候会停止
+
+下面是游戏规则：
+
+1、H*W的棋盘上，1和2表示两个棋子的初始位置，-1和-2表示对应的终点位置，0表示空，9表示障碍物
+
+2、可以上下左右滑动，两个棋子同时移动，只有遇到 障碍物或者边缘才会停止，两个棋子不可重叠，不可穿越
+
+Lucy设计了几个小关卡，但是她不知道这些关卡是否能在8步之内通过，请编写程序帮助Lucy，计算出每个关卡最小的移动次数，如果不能在8步内通关，则返回-1
+输入
+
+第一行输入测试用例个数T 。
+第二行输入棋盘的高H和宽W （4<=H<=10, 4<=W<=10）
+后续是一个H*W的棋盘信息。
+输出
+对每个测试用例，输出达到胜利所需的最少的滑动次数。
+如果游戏无法胜利，输出-1。
+样例输入
+
+1
+5 5
+0 1 0 0 0
+0 0 0 0 0
+0 2 0 9 0
+0 0 0 0 0
+0 9 -1 0 -2
+
+样例输出
+
+#1 3
+//1142 滑板棋代码
+#include<iostream>
+using  namespace std;
+#define NSIZE 10
+int map[NSIZE][NSIZE];
+int H,W;
+int s1,s2;
+int minlevel;
+//#define debug
+int sx[2];
+int sy[2];
+int suc;
+int ex[2];
+int ey[2];
+void input()
+{
+    cin>>H>>W;
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            cin>>map[i][j];
+            if(map[i][j] == 1)
+            {
+                sx[0]= i;
+                sy[0] = j;
+            }else if(map[i][j] == 2)
+            {
+                sx[1] = i;
+                sy[1]= j;
+            }else if(map[i][j] ==-1)
+            {
+                ex[0] = i;
+                ey[0] = j;
+            }else if(map[i][j] == -2)
+            {
+                ex[1] = i;
+                ey[1] = j;
+            }
+        }
+    }
+}
+ 
+void output()
+{
+    cout<<"qi pan"<<endl;
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            cout<<map[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+ 
+int canshift(int i,int j)
+{
+    if(i<0 || i>=H || j<0 || j>=W || map[i][j] >0)
+        return 0;
+    return 1;
+}
+ 
+ 
+void shift(int fangxiang,int i1,int j1,int i2,int j2)
+{
+     int cs1 = 1,cs2 = 1;
+     sx[0] = i1;
+     sy[0] = j1;
+     sx[1]= i2;
+     sy[1]= j2;
+     if(fangxiang == 1)
+     {
+         cs1 = canshift(i1-1,j1);
+         cs2 = canshift(i2-1,j2);
+         while(cs1 || cs2)
+         {
+             if(cs1)
+             {
+                 map[i1-1][j1] = map[i1][j1];
+                 map[i1][j1] = 0;
+                 --i1;
+             }
+             if(cs2)
+             {
+                 map[i2-1][j2] = map[i2][j2];
+                 map[i2][j2] = 0;
+                 --i2;
+             }
+             cs1 = canshift(i1-1,j1);
+            cs2 = canshift(i2-1,j1);
+         }
+     }else if(fangxiang == 2)
+     {
+         cs1 = canshift(i1,j1+1);
+         cs2 = canshift(i2,j2+1);
+         while(cs1 || cs2)
+         {
+             if(cs1)
+             {
+                 map[i1][j1+1] = map[i1][j1];
+                 map[i1][j1] = 0;
+                 ++j1;
+             }
+             if(cs2)
+             {
+                 map[i2][j2+1] = map[i2][j2];
+                 map[i2][j2] = 0;
+                 ++j2;
+             }
+             cs1 = canshift(i1,j1+1);
+             cs2 = canshift(i2,j2+1);
+         }
+     }else if(fangxiang == 3)
+     {
+         cs1 = canshift(i1+1,j1);
+         cs2 = canshift(i2+1,j2);
+         while(cs1 || cs2)
+         {
+             if(cs1)
+             {
+                 map[i1+1][j1] = map[i1][j1];
+                 map[i1][j1] = 0;
+                 ++i1;
+             }
+             if(cs2)
+             {
+                 map[i2+1][j2] = map[i2][j2];
+                 map[i2][j2] = 0;
+                 ++i2;
+             }
+             cs1 = canshift(i1+1,j1);
+             cs2 = canshift(i2+1,j2);
+         }
+     }else{
+         cs1 = canshift(i1,j1-1);
+         cs2 = canshift(i2,j2-1);
+         while(cs1 || cs2)
+         {
+             if(cs1)
+             {
+                 map[i1][j1-1] = map[i1][j1];
+                 map[i1][j1] = 0;
+                 --j1;
+             }
+             if(cs2)
+             {
+                 map[i2][j2-1] = map[i2][j2];
+                 map[i2][j2] = 0;
+                 --j2;
+             }
+             cs1 = canshift(i1,j1-1);
+             cs2 = canshift(i2,j2-1);
+         }
+     }
+     sx[0] = i1;
+     sy[0] = j1;
+     sx[1]= i2;
+     sy[1]= j2;
+}
+ 
+void save(int savemap[NSIZE][NSIZE])
+{
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            savemap[i][j] = map[i][j];
+        }
+    }
+}
+ 
+void recv(int savemap[NSIZE][NSIZE])
+{
+    for(int i=0;i<H;++i)
+    {
+        for(int j=0;j<W;++j)
+        {
+            map[i][j]=savemap[i][j];
+        }
+    }
+}
+ 
+void dfs(int level,int sx1,int sy1,int sx2,int sy2)
+{
+    if(level  >= 8&& suc ==0)
+    {
+        return;
+    }
+ 
+    if(sx1 == ex[0] && sy1 == ey[0] && sx2 == ex[1] && sy2 == ey[1])
+    {
+        if(minlevel > level)
+        {
+            minlevel = level;
+        }
+        return ;
+    }
+    int savemap[NSIZE][NSIZE];
+    int a=0,b=0,c=0,d=0;
+    save(savemap);
+    //up
+#ifdef debug
+    output();
+#endif
+    shift(1,sx1,sy1,sx2,sy2);
+#ifdef debug
+    cout<<"******************up"<<endl;
+    output();
+#endif
+    a = sx[0];b= sy[0];c=sx[1];d= sy[1];
+    dfs(level+1,a,b,c,d);
+    suc =0;
+    recv(savemap);
+    //right
+    #ifdef debug
+    output();
+#endif
+    shift(2,sx1,sy1,sx2,sy2);
+    #ifdef debug
+    cout<<"******************right"<<endl;
+    output();
+#endif
+    a = sx[0];b= sy[0];c=sx[1];d= sy[1];
+    dfs(level+1,a,b,c,d);
+    suc =0;
+    recv(savemap);
+    //down
+    #ifdef debug
+    output();
+#endif
+    shift(3,sx1,sy1,sx2,sy2);
+    #ifdef debug
+    cout<<"******************down"<<endl;
+    output();
+    #endif
+    a = sx[0];b= sy[0];c=sx[1];d= sy[1];
+    dfs(level+1,a,b,c,d);
+    suc =0;
+    recv(savemap);
+    //left
+    #ifdef debug
+    output();
+#endif
+    shift(4,sx1,sy1,sx2,sy2);
+    #ifdef debug
+    cout<<"******************left"<<endl;
+    output();
+#endif
+    a = sx[0];b= sy[0];c=sx[1];d= sy[1];
+    dfs(level+1,a,b,c,d);
+    suc =0;
+    recv(savemap);
+}
+int main()
+{
+    int T;
+    //freopen("D:\\1142.txt","r",stdin);
+    cin>>T;
+    for(int li=1;li<=T;++li)
+    {
+        s1 =0;
+        s2 = 0;
+        minlevel = 9;
+        input();
+        dfs(0,sx[0],sy[0],sx[1],sy[1]);
+        cout<<"#"<<li<<" ";
+        if(minlevel == 9)
+        {
+            cout<<-1<<endl;
+        }else{
+            cout<<minlevel<<endl;
+        }
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1142
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:216 ms
+    Memory:1680 kb
+****************************************************************/
+147: ★密文破译2
+时间限制: 2 Sec  内存限制: 128 MB
+提交: 52  解决: 36
+[提交][状态][讨论版]
+题目描述
+
+时隔1年，九头蛇组织重出江湖，神盾局特工凭借高超的身手再一次截获到九头蛇组织的保险箱，经过一番努力和修改，保险箱的密码锁能够反馈出匹配信息。
+现已知密码是5位数字（10000~99999），改装后的密码锁能反馈两种信息：一种是匹配位数B（如红字），一种是除匹配位数的匹配数字个数C（如绿字），请依据这些信息，求出可能的密码个数。
+
+Example 1：设原密码为13456，尝试数字为33516
+
+13456     
+
+33516    //B=2 
+
+1*45*
+
+3*51*    //C=2
+
+Example 2：设原密码为67577，尝试数字为71676
+
+67577     
+
+71676    //B=1 
+
+675*7
+
+716*6    //C=2（共4种情况，但实则C=2不变）
+
+Example 3：设原密码为67677，尝试数字为76766
+
+67677
+
+76766    //B=0 
+
+67677
+
+76766    //C=4（多种情况，但实则C=4不变）
+
+
+
+
+输入
+
+第一行包含一个整数T，是总共测试用例的数目
+
+每个测试用例的第一行是尝试数字的个数N，
+
+接下来N行每行为尝试数字、匹配位数B、除匹配位数匹配数字个数C，以空格分隔
+输出
+每个测试用例占一行，用“#t”表示（t为当前测试用例序号，从1开始），接下来一个空格然后输出结果
+样例输入
+
+5
+5
+18211 0 3
+29790 1 1
+31307 2 1
+22294 0 1
+28334 0 3
+8
+33940 0 2
+35911 0 1
+32827 1 2
+41251 0 2
+11856 1 0
+17549 1 2
+24639 3 0
+27357 1 2
+10
+71676 1 2
+31920 0 0
+40528 1 0
+15897 1 1
+41588 1 0
+30002 0 0
+23741 0 1
+10553 1 0
+37658 1 2
+40297 1 0
+7
+11074 0 1
+18098 0 1
+32327 1 2
+13579 1 2
+18092 0 2
+17583 0 2
+29664 2 1
+1
+10448 1 0
+
+样例输出
+
+#1 3
+#2 0
+#3 2
+#4 1
+#5 9452
+//密文破译2 
+#include<iostream>
+#include<iomanip>
+//#define debug
+using namespace std;
+#define NSIZE 100
+int B[NSIZE];
+int C[NSIZE];
+int N;
+int numa[NSIZE][5];
+int numb[5];
+int visita[5];
+int visitb[5];
+ 
+void convert(int numb[],int num)
+{
+    for(int i=4;i>=0;--i)
+    {
+        numb[i] = num%10;
+        num /= 10;
+    }
+}
+ 
+void input()
+{
+    cin>>N;
+    int a;
+     
+    for(int i=0;i<N;++i)
+    {
+        cin>>a>>B[i]>>C[i] ;
+        convert(numa[i],a);
+    }
+}
+ 
+ 
+int cm(int index)
+{
+    int tc = 0;
+    for(int i=0;i<5;++i)
+    {
+        visita[i] = 0;
+        visitb[i] = 0;
+    }
+#ifdef debug
+    for(int i=0;i<5;++i)
+    cout<<numb[i];
+    cout<<endl;
+    for(int i=0;i<5;++i)
+    cout<<numa[index][i];
+    cout<<endl;
+#endif
+    for(int i=0;i<5;++i)
+    {
+        if(numa[index][i] == numb[i])
+        {
+            ++tc;
+            visita[i] = 1;
+            visitb[i] = 1;
+        }
+    }
+    /*if(tc != B[index])
+        return 0;*/
+    int td = 0;
+    for(int i=0;i<5;++i)
+    {
+        if(visita[i])
+            continue;
+        for(int j= 0;j<5;++j)
+        {
+            if(visitb[j] ==0 && i!=j && numa[index][i] == numb[j])
+            {
+                ++td;
+                visita[i] = 1;
+                visitb[j] = 1;
+                break;
+            }
+        }
+    }
+#ifdef debug
+    cout<<"after**********tctd"<<tc<<"  "<<td<<"  "<<endl;
+#endif
+    if((tc != B[index]) || (td != C[index]))
+        return 0;
+    return 1;
+}
+ 
+void output()
+{
+    cout<<"parameter:"<<endl;
+    for(int i=0;i<N;++i)
+    {
+        for(int j=0;j<5;++j)
+            cout<<numa[i][j];
+        cout<<"   "<<B[i]<<"  "<<C[i] <<endl;
+    }
+}
+ 
+int main()
+{
+    int T;
+    //freopen("D:\\1147.txt","r",stdin);
+    cin>>T;
+    for(int li = 1;li<=T;++li)
+    {
+        input();
+        int res =0;
+        for(int i=10000;i<100000;++i)
+        {
+            convert(numb,i);
+            int j=0;
+            for(j=0;j<N;++j)
+            {
+                if(!cm(j))
+                {
+                    break;
+                }
+            }
+ 
+            if(j>=N)
+            {
+                ++res;
+                //cout<<"**"<<setw(6)<<i;
+            }
+        }
+        cout<<"#"<<li<<" "<<res<<endl;
+ 
+    }
+    return 0;
+}
+ 
+/**************************************************************
+    Problem: 1147
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:260 ms
+    Memory:1680 kb
+****************************************************************/
+1201: ★跑步练习
+时间限制: 3 Sec  内存限制: 256 MB
+提交: 66  解决: 35
+[提交][状态][讨论版]
+题目描述
+
+小明为了应对马上到来的马拉松比赛决定进行跑步练习，正常人都知道，跑的越快最终所需要的时间就越短，但是，跑的越快消耗的体能也就越大，那么如何控制每一公里的跑步速度就显得非常重要。现在，小明需要我们帮他确定一种方案，能够让他在最短的时间内完成马拉松比赛的同时所消耗的体能不超过限制。
+
+
+· 总体能H，总跑步距离D。
+
+· 5种跑步的速度方案：速度（跑一公里所需要的时间）和跑一公里所消耗的体能。 
+
+给出了如下信息，我们需要确定一种方案来让跑完全部距离D的时间最短，同时，总的消耗体能不能超过总体能H.
+
+示例：
+
+· 总体能H=120
+
+· 总跑步距离D=20
+
+· 速度方案：跑1km所需要的时间和消耗的体能
+
+速度方案
+	1
+	2
+	3
+	4
+	5
+跑1km的时间
+	3min 30sec
+	3min 50sec
+	4min 10sec
+	4min 30sec
+	4min 50sec
+跑1km消耗的体能
+	12
+	6
+	4
+	3
+	2
+
+1)如果前5km采用方案1（3min 30sec/1km），后15km采用方案3（4min 10sec/1km），跑完20km所需要的时间是80min
+
+2)如果全部20km都采用方案2（3min 50sec/1km）,跑完20km所需要的时间是76min 40sec。
+
+所以，最短的时间是76min 40sec
+
+要求：
+
+1.每1km都可以改变速度。
+
+2.总体能H是一个整数，并且100≤H≤600.
+
+3.总距离D是一个整数，并且5≤D≤40.
+
+4.5种速度方案所需要的时间是以M min S sec的形式给出，3≤M≤6,0≤S≤59.
+
+5.每种速度方案所消耗的体能C是一个整数，2≤C≤20。
+
+6.跑完全程所消耗的总体能要小于或等于H。
+输入
+第一行 T ----cases数量。
+
+每个case的第一行 ：总体能H    总距离D。
+
+接下来5行对应5种速度方案：第一个数据是跑1km所需要的分数M，第二个数据是跑1km所需要的秒数S，第三个数据是跑1km所需要消耗的体能C。
+输出
+打印"#t", 然后空格，然后答案。
+
+答案以M（min） S（sec）的形式打印出来。
+
+例：#5 137 11              //第5个case的答案是137分11秒。
+样例输入
+
+1
+120 20
+3 30 12
+3 50 6
+4 10 4
+4 30 3
+4 50 2
+
+样例输出
+
+#1 76 40
+
+提示
+
+来源
+#include<iostream>
+using namespace std;
+int H,D;
+int t[5];
+int e[5];
+int  gt;
+void input()
+{
+    cin>>H>>D;
+    for(int i=0;i<5;++i)
+    {
+        int h,m;
+        cin>>h>>m>>e[i];
+        t[i] = h*60+m;
+    }
+    gt =100000000;
+}
+ 
+ 
+void dfs(int level ,int ct,int ch,int pred)
+{
+    if(level >=4)
+    {
+        if( ch + e[level]*(D-pred)<=H)
+        {
+            ct += t[level]*(D-pred);
+            if(gt>ct)
+                gt = ct;
+        }
+        return ;
+    }
+    for(int d=0;d<=D-pred;++d)
+    {
+        if( ch + e[level]*d>H)
+        {
+            break;
+        }
+        dfs(level+1,ct+t[level] *d,ch+e[level]*d,pred+d);
+    }
+}
+int main()
+{
+    int T;
+    //freopen("D:\\1201.txt","r",stdin);
+    cin>>T;
+    for(int i=1;i<=T;++i)
+    {
+        input();
+        dfs(0,0,0,0);
+        //cout<<gt<<endl;
+        cout<<"#"<<i<<" "<<gt/60<<" "<<gt%60<<endl;
+    }
+    return 0;
+}
+/**************************************************************
+    Problem: 1201
+    User: dengfangwen
+    Language: C++
+    Result: 正确
+    Time:20 ms
+    Memory:1676 kb
+****************************************************************/
